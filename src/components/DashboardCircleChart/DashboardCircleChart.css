@@ -1,0 +1,50 @@
+.chart-container {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.chart-wrapper {
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+
+.center-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2575fc;
+  text-align: center;
+}
+
+.custom-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-color {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+.legend-value {
+  font-weight: bold;
+  min-width: 30px;
+}
+
+.legend-label {
+  color: #333;
+}

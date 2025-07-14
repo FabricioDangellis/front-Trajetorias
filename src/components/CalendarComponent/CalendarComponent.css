@@ -1,0 +1,119 @@
+.calendar-container {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 0 6px rgba(0,0,0,0.05);
+}
+
+/* ==== BOTÕES E TOPO ==== */
+.fc-header-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.fc .fc-button {
+  background-color: var(--turquesa-medio);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.fc .fc-button:hover {
+  background-color: #1aa8a3;
+}
+
+.fc .fc-button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.fc .fc-button-active {
+  background-color: #1aa8a3;
+  font-weight: bold;
+}
+
+/* ==== TÍTULO DO CALENDÁRIO ==== */
+.fc-toolbar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* ==== EVENTOS PERSONALIZADOS POR STATUS ==== */
+.fc-event {
+  border: none;
+  color: white;
+  font-size: 0.9rem;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.fc-event:hover {
+  opacity: 0.95;
+  cursor: pointer;
+}
+
+/* Azul - Confirmado */
+.fc-event.confirmado {
+  background-color: #2575fc;
+}
+
+/* Amarelo - Pendente */
+.fc-event.pendente {
+  background-color: #fcbf49;
+  color: #333;
+}
+
+/* Vermelho - Cancelado */
+.fc-event.cancelado {
+  background-color: #e63946;
+}
+
+/* ==== DIAS DA SEMANA ==== */
+.fc-col-header-cell-cushion {
+  font-weight: 600;
+  color: #2575fc;
+  text-transform: capitalize;
+  padding: 0.5rem 0;
+}
+
+/* ==== HORÁRIOS LATERAIS (visão semanal/diária) ==== */
+.fc-timegrid-slot-label {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+/* ==== CÉLULAS DO CALENDÁRIO ==== */
+.fc-timegrid-slot {
+  background-color: #fdfdfd;
+  transition: background 0.2s;
+}
+
+.fc-timegrid-slot:hover {
+  background-color: #f3f3f3;
+}
+
+/* ==== AJUSTES GERAIS ==== */
+.calendar-container {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .fc-header-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

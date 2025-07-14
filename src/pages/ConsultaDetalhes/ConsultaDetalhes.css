@@ -1,0 +1,157 @@
+/* ConsultaDetalhes.css */
+
+.consulta-detalhes {
+  display: flex;
+  height: 100vh;
+  background-color: #f7f8fa;
+
+  
+    .content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    }
+
+    .topo h2 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    }
+
+    .consulta-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    }
+
+    .info-basica p {
+    font-size: 1rem;
+    margin: 0.3rem 0;
+    color: #333;
+    }
+
+    .botoes-controle {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    }
+
+    .botoes-controle button {
+    padding: 0.6rem 1.2rem;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 0.6rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    }
+
+    .botoes-controle button:hover {
+    background-color: #3a7dc2;
+    }
+
+    .botoes-controle .delete {
+    background-color: #e74c3c;
+    }
+
+    .botoes-controle .delete:hover {
+    background-color: #c0392b;
+    }
+
+    .bloco-notas {
+    display: flex;
+    flex-direction: column;
+    }
+
+    .bloco-notas h3 {
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+    }
+
+    .bloco-notas textarea {
+    min-height: 120px;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border-radius: 0.6rem;
+    border: 1px solid #ccc;
+    resize: vertical;
+    background-color: white;
+    }
+
+    .documentos {
+    background-color: white;
+    border-radius: 0.8rem;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .cabecalhoDocumentos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    }
+
+    .cabecalhoDocumentos h3 {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    }
+
+    .cabecalhoDocumentos button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-size: 0.9rem;
+    cursor: not-allowed;
+    opacity: 0.6;
+    }
+
+    .listaDocumentos {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    }
+
+    .document-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #eee;
+    }
+
+    .document-item .info {
+    display: flex;
+    flex-direction: column;
+    }
+
+    .document-item .doc-name {
+    font-weight: bold;
+    }
+
+    .document-item .doc-date {
+    font-size: 0.85rem;
+    color: #666;
+    }
+
+    .downlod-button {
+    background: none;
+    border: none;
+    color: #4a90e2;
+    font-size: 1.2rem;
+    cursor: not-allowed;
+    opacity: 0.5;
+    }
+
+    .avatarPaciente {
+      width: 150px;
+      height: 150px;
+    }
+
+}

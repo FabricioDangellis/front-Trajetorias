@@ -1,0 +1,50 @@
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: var(--cinza-claro);
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.contentModal p {
+  margin: 1rem 0;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.contentModal button {
+  color: red;
+  background-color: var(--cinza-claro);
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  position: absolute;
+  top: -10px;
+  right: 5px;
+
+  .iconeClose {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.contentModal button:hover {
+    background-color: var(--cinza-claro);
+}

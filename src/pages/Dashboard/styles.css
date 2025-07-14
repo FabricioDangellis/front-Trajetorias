@@ -1,0 +1,189 @@
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  overflow-y: auto;
+  width: 100px;
+
+  .conteudo {
+    width: 70%;
+
+    .mainSection {
+      padding: 1rem;
+
+      .banner {
+        width: calc(100%-2rem);
+        height: 200px;
+        padding: 1rem;
+        background-color: var(--lilas-suave);
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        margin: 0;
+
+        .date {
+          color: white;
+          background-color: rgba(255, 255, 255, 0.232);
+          width: 100px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: 0 5px;
+          font-weight: bold;
+          border-radius: 5px;
+
+          .icone {
+            width: 20px;
+            height: 20px;
+          }
+        }
+
+        .texto {
+          width: 40%;
+          color: white;
+          width: 70%;
+
+          h1 {
+            margin-bottom: 15px;
+          }
+        }
+
+        img {
+          width: 300px;
+          position: absolute;
+          bottom: 5px;
+          right: 10px;
+        }
+      }
+
+      .graficos {
+        display: flex;
+        gap: 20px;
+        max-height: 350px;
+
+        .graficoRosca, .graficoBarras {
+          margin-top: 15px;
+          padding: 10px;
+          background-color: white;
+          width: calc(50% - 30px);
+          border-radius: 15px;
+
+          h2 {
+            color: #333;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+          }
+        }
+      }
+
+      
+    }
+  }
+
+  .dadosUser {
+    width: 30%;
+    padding: 1rem 0;
+    margin: 0 5px;
+
+    .meuPerfil {
+      height: 50px;
+      background-color: var(--turquesa-medio);
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+
+      h2 {
+        color: white;
+        font-size: 1rem;
+        font-family: var(--fonte-titulos);
+      }
+
+      button {
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        margin: 0;
+
+        .icone {
+          width: 100%;
+          height: 100%;
+          margin: 0px;
+        }
+      }
+
+
+    }
+    
+    .meuCalendario {
+      height: 50px;
+      background-color: var(--turquesa-medio);
+      border-radius: 9px 9px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+
+      h2 {
+        color: white;
+        font-size: 1rem;
+        font-family: var(--fonte-titulos);
+      }
+    }
+
+    .user {
+      height: 8rem;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-left: 10px;
+      background-color: white;
+      margin-bottom: 20px;
+      border-radius: 0 0 10px 10px;
+
+      .fotoUser {
+        width: 80px;
+        height: 80px;
+        color: var(--turquesa-medio);
+      }
+
+      h2 {
+        font-size: 1rem;
+      }
+    }
+
+  }
+}
+
+.cards {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  flex: 1;
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h2 {
+  margin-bottom: 0.5rem;
+  color: #2575fc;
+}

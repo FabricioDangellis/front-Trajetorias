@@ -1,0 +1,81 @@
+.patient-care {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tabs button {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border-bottom: 2px solid white;
+  border-radius: 0;
+  background: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: #605f5f;
+}
+
+.tabs button.active {
+  color: #333;
+  background: none;
+  border-bottom: 2px solid var(--turquesa-medio);
+}
+
+.appointment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.appointment-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-left: 5px solid var(--cinza-claro);
+  padding: 1rem;
+  border-radius: 8px;
+  position: relative;
+}
+
+.appointment-card.confirmada {
+  border-left: 5px solid var(--turquesa-medio);
+}
+
+.appointment-card.cancelada {
+  border-left: 5px solid var(--rosa-claro);
+}
+
+.appointment-card.pendente {
+  border-left: 5px solid var(--amarelo-pastel);
+}
+
+
+.tipo {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.875rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.tipo.confirmada {
+  background-color: #d1e3f3;
+  color: var(--turquesa-medio);
+}
+
+.tipo.cancelada {
+  background-color: var(--rosa-claro);
+  color: #ea0008;
+}
+
+.tipo.pendente {
+  background-color: #fdeecc;
+  color: #ffb300;
+}

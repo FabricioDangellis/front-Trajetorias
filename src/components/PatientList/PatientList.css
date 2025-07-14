@@ -1,0 +1,226 @@
+.patients-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: calc(100%-2rem);
+    gap: 2rem;
+    margin-top: 10px;
+
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+        }
+
+        .modal {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        width: 500px;
+        max-height: 90vh;
+        overflow-y: auto;
+        }
+
+        .modal input,
+        .modal select,
+        .modal textarea {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.8rem;
+        padding: 0.6rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        }
+
+        .botoesModal {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        }
+
+}
+
+.menuLista {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    input {
+        width: calc(65% + 20px);
+        margin: 0;
+    }
+
+    button {
+        width: 20%;
+        margin: 0;
+        border-radius: 30px;
+        background-color: var(--turquesa-medio);
+        font-size: 1rem;
+    }
+}
+
+.corpoLista {
+    display: flex;
+    gap: 1rem;
+}
+
+.patient-list {
+    width: 65%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+
+    .titulo {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.75rem;
+        border-radius: 10px;
+        margin-bottom: 10px;
+
+        .nome {
+            width: 50%;
+        }
+
+        .status {
+            width: 20%;
+        }
+
+        .ultimaSessao {
+            width: 30%;
+        }
+
+        .nome,
+        .status,
+        .ultimaSessao {
+            font-weight: bold;
+        }
+    }
+}
+
+.patient-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    padding: 0.75rem;
+    border-radius: 10px;
+    transition: background 0.2s;
+    margin-bottom: 5px;
+
+    .nome {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        img {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    .status {
+        width: 20%
+    }
+
+    .ultimaSessao {
+        width: 30%;
+    }
+}
+
+.patient-item:hover,
+.patient-item.selected {
+    background-color: #e6f0ff;
+}
+
+.patient-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.patient-list-header {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.patient-search {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.patient-detail {
+    flex: 1;
+    padding: 1rem;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+
+    .close-button {
+        background: none;
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        right: 5px;
+        top: 1px;
+        color: red;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .icone {
+            width: 30px;
+            height: 30px;
+        }
+    }
+
+    .sobrePaciente {
+        margin: 10px 0;
+        text-align: justify;
+    }
+
+    .botaoExibir {
+        background-color: var(--turquesa-medio);
+        padding: 10px 26px;
+        border-radius: 20px;
+        color: white;
+        margin-top: 15px;
+        transition: background 0.2s;
+    }
+
+    .botaoExibir:hover {
+        background-color: #3a6783;
+    }
+}
+
+.patient-detail img {
+    width: 150px;
+    aspect-ratio: 1 / 1;
+    border-radius: 55%;
+    object-fit: cover;
+}

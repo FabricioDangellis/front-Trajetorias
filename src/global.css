@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+SA+Hand:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+:root {
+    --azul-serenity: #A8DADC;
+    --turquesa-medio: #457B9D;
+    --amarelo-pastel: #FFD166;
+    --rosa-claro: #FFB6B9;
+    --lilas-suave: #C3A6D1;
+    --cinza-claro: #F4F4F4;
+    --fonte-titulos: "Montserrat", sans-serif;
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    background-color: #F4F4F4;
+    font-family: "Open Sans", sans-serif;
+}
+
+a {
+    text-decoration: none;
+}

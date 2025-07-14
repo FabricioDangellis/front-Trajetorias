@@ -1,0 +1,185 @@
+.listaAtendimentos {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 10px;
+  margin-top: 10px;
+
+  .tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #ddd;
+  }
+
+  .tabs button {
+    background: none;
+    border: none;
+    font-weight: bold;
+    color: #666;
+    padding: 0.5rem;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .tabs button.active {
+    color: #333;
+    border-bottom: 2px solid var(--turquesa-medio);
+  }
+
+  .titulo {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+    
+    .paciente {
+      width: 30%;
+    }
+
+    .horario {
+      width: 10%;
+    }
+
+    .tipoAtendimento {
+      width: 20%;
+    }
+
+    .status{
+      width: 20%;
+    }
+
+    .visualizar {
+      width: 20%;
+    }
+  }
+
+  .appointment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .appointment-item {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding-left: 1rem;
+
+    .paciente {
+        width: 30%;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        img {
+            width: 40px;
+            height: 40px;
+            aspect-ratio: 1 / 1;
+            border-radius: 55%;
+            object-fit: cover;
+        }
+    }
+
+    .horario {
+      width: 10%;
+    }
+
+    .tipoAtendimento {
+      width: 20%;
+    }
+
+    .status{
+      width: 20%;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .visualizar {
+      width: 20%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      button {
+        margin: 0 1rem 0 0;
+        width: 70%;
+      }
+    }
+
+  }
+
+  .appointment-item:hover {
+    background-color: #e6f0ff;
+  }
+
+  .statusAtendimento {
+    font-size: 0.875rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .statusAtendimento.confirmado {
+    background-color: #d1f3e0;
+    color: #1e8e3e;
+  }
+  .statusAtendimento.pendente {
+    background-color: #fff6cc;
+    color: #fbbc04;
+  }
+  .statusAtendimento.cancelado {
+    background-color: #ffe2e2;
+    color: #d93025;
+  }
+
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+
+  .modalContent {
+    background: white;
+    padding: 2rem;
+    width: 500px;
+    border-radius: 8px;
+    position: relative;
+  }
+
+  .closeButton {
+    background: transparent;
+    border: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+
+  .formAtendimento label {
+    display: block;
+    margin-top: 10px;
+  }
+
+  .formAtendimento input,
+  .formAtendimento select,
+  .formAtendimento textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
+
+
+}
