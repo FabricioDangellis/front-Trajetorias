@@ -17,33 +17,132 @@
         justify-content: center;
         align-items: center;
         z-index: 999;
-        }
+    }
 
-        .modal {
+    .modal {
         background: white;
         padding: 2rem;
         border-radius: 10px;
         width: 500px;
         max-height: 90vh;
         overflow-y: auto;
+
+        .fecharCadastro {
+            color: red;
+            background: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0px;
+            position: absolute;
+            top: -10px;
+            right: 5px;
+
+            .iconeClose {
+                width: 40px;
+                height: 40px;
+            }
         }
 
-        .modal input,
-        .modal select,
-        .modal textarea {
-        display: block;
+        form .pacienteResponsavel, form .nascimentoStatus{
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            flex: 2;
+            margin-top: 10px;
+
+            div {
+                width: 50%;
+
+                h4 {
+                    margin-bottom: 5px;
+                    font-weight: normal;
+                }
+
+                input {
+                    width: 200%;
+                }
+            }
+        }
+
+        form .ultimoAtendimento {
+            margin-top: 10px;
+
+            h4 {
+                margin-bottom: 5px;
+                font-weight: normal;
+            }
+        }
+
+        form .informes {
+            width: 100%;
+
+            textarea {
+                width: 100%;
+                height: 5rem;
+                box-sizing: border-box;
+                padding: 0.8rem;
+                background-color: #F4F4F4;
+                border: 1px solid #ccc;
+                border-radius: 20px;
+                transition: border 0.3s ease;
+            }
+        }
+    }
+
+    .statusFormularioPaciente {
+        position: relative;
+        display: inline-block;
         width: 100%;
-        margin-bottom: 0.8rem;
-        padding: 0.6rem;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        }
+    }
 
-        .botoesModal {
+    .statusFormularioPaciente select {
+        appearance: none;
+        -webkit-appearance: none; /* Para navegadores WebKit (Chrome, Safari) */
+        -moz-appearance: none;    /* Para Firefox */
+        width: 100%;
+        height: 2.6rem;
+        box-sizing: border-box;
+        padding: 0.8rem;
+        margin-bottom: 1rem;
+        background-color: #F4F4F4;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        transition: border 0.3s ease;
+    }
+
+    .statusFormularioPaciente::after {
+        content: '';
+        position: absolute;
+        top: 55%;
+        right: 12px;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid #333; /* Cor da seta */
+        pointer-events: none; /* Impede que a seta interaja com cliques */
+    }
+
+    .statusFormularioPaciente:hover select {
+        border-color: #aaa;
+    }
+
+    .statusFormularioPaciente:focus-within::after {
+        border-top-color: #007bff; /* Cor da seta ao focar */
+    }
+
+
+    .botoesModal {
         display: flex;
         justify-content: flex-end;
         gap: 10px;
-        }
+    }
 
 }
 

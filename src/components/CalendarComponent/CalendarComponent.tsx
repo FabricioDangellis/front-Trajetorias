@@ -79,11 +79,11 @@ export function CalendarComponent() {
     <div className="calendar-container">
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        initialView="timeGridWeek"
+        initialView="dayGridMonth"
         headerToolbar={{
           start: "dayGridMonth,timeGridWeek,timeGridDay",
           center: "title",
-          end: "prev,next today",
+          end: "prev,next",
         }}
         events={events}
         eventClick={handleEventClick}

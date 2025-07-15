@@ -5,153 +5,180 @@
   height: 100vh;
   background-color: #f7f8fa;
 
-  
-    .content {
-    flex: 1;
-    padding: 2rem;
-    overflow-y: auto;
-    }
+      .content {
 
-    .topo h2 {
-    font-size: 1.8rem;
-    color: #2c3e50;
-    margin-bottom: 2rem;
-    }
+        .mainSection {
+            
+            .conteudo {
+                width: 100%;
+                padding: 1rem 0;
+                display: flex;
+                gap: 1rem;
 
-    .consulta-body {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    }
+                .principal {
+                    width: calc(70% - 5px);
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1rem;
 
-    .info-basica p {
-    font-size: 1rem;
-    margin: 0.3rem 0;
-    color: #333;
-    }
+                    .dadosConsulta {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
 
-    .botoes-controle {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    }
+                        .paciente {
+                            width: calc(40% - 0.5rem);
+                            height: 260px;
+                            background-color: white;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 10px;
+                            border-radius: 10px;
 
-    .botoes-controle button {
-    padding: 0.6rem 1.2rem;
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    border-radius: 0.6rem;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: background 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    }
+                            img {
+                                width: 150px;
+                                aspect-ratio: 1 / 1;
+                                border-radius: 55%;
+                                object-fit: cover;
+                            }
+                        }
 
-    .botoes-controle button:hover {
-    background-color: #3a7dc2;
-    }
+                        .informesGerais {
+                            width: calc(60% - 2.5rem);
+                            height: calc(257px - 1rem);
+                            background-color: white;
+                            padding: 3px 1rem 1rem 1rem;
+                            border-radius: 10px;
 
-    .botoes-controle .delete {
-    background-color: #e74c3c;
-    }
+                           .grid-infos {
+                                display: grid;
+                                grid-template-columns: max-content 1fr;
+                                column-gap: 1.5rem;
+                                row-gap: 0.75rem;
+                                margin-top: 1rem;
+                            }
 
-    .botoes-controle .delete:hover {
-    background-color: #c0392b;
-    }
+                            .grid-infos p {
+                                margin: 0;
+                                align-self: start;
+                            }
 
-    .bloco-notas {
-    display: flex;
-    flex-direction: column;
-    }
+                        }
+                    }
 
-    .bloco-notas h3 {
-    margin-bottom: 0.5rem;
-    color: #2c3e50;
-    }
+                    .temporisador {
+                      width: 100%;
+                      display: flex;
+                      justify-content: center;
+                    }
 
-    .bloco-notas textarea {
-    min-height: 120px;
-    padding: 0.8rem;
-    font-size: 1rem;
-    border-radius: 0.6rem;
-    border: 1px solid #ccc;
-    resize: vertical;
-    background-color: white;
-    }
+                    .timer {
+                      background-color: #f0f8ff;
+                      border: 2px solid #007bff33;
+                      padding: 0.75rem 1.5rem;
+                      border-radius: 30px;
+                      display: inline-block;
+                      font-size: 1.1rem;
+                      font-weight: 600;
+                      color: #007bff;
+                      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                      margin-top: 1rem;
+                      animation: fadeIn 0.5s ease-in-out;
+                    }
 
-    .documentos {
-    background-color: white;
-    border-radius: 0.8rem;
-    padding: 1rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
+                    @keyframes fadeIn {
+                      from {
+                        opacity: 0;
+                        transform: translateY(-4px);
+                      }
+                      to {
+                        opacity: 1;
+                        transform: translateY(0);
+                      }
+                    }
 
-    .cabecalhoDocumentos {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    }
 
-    .cabecalhoDocumentos h3 {
-    font-size: 1.2rem;
-    color: #2c3e50;
-    }
+                    .botoes-controle {
+                      display: flex;
+                      gap: 20px;
+                    }
 
-    .cabecalhoDocumentos button {
-    background-color: #4a90e2;
-    color: white;
-    padding: 0.4rem 0.8rem;
-    border-radius: 0.5rem;
-    border: none;
-    font-size: 0.9rem;
-    cursor: not-allowed;
-    opacity: 0.6;
-    }
+                    .bloco-notas {
+                        textarea {
+                          width: 100%;
+                          height: 5rem;
+                          box-sizing: border-box;
+                          padding: 0.8rem;
+                          background-color: #F4F4F4;
+                          border: 1px solid #ccc;
+                          border-radius: 20px;
+                          transition: border 0.3s ease;
+                      }
+                    }
+                }
 
-    .listaDocumentos {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    }
+                .documentos {
+                    width: calc(30% - 5px);
+                    height: 100%;
+                    background-color: white;
+                    border-radius: 10px;
+                    padding: 0 1rem 1rem 1rem;
 
-    .document-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.6rem 0;
-    border-bottom: 1px solid #eee;
-    }
+                    .cabecalhoDocumentos {
+                        padding: 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
 
-    .document-item .info {
-    display: flex;
-    flex-direction: column;
-    }
+                        .adicionarDocumento {
+                            width: 30px;
+                            height: 30px;
+                            background: none;
+                            color: var(--turquesa-medio);
+                            padding: 0;
+                            margin: 5px 0px 0px 0px;
 
-    .document-item .doc-name {
-    font-weight: bold;
-    }
+                            .icone {
+                                width: 30px;
+                                height: 30px;
+                            }
+                        }
 
-    .document-item .doc-date {
-    font-size: 0.85rem;
-    color: #666;
-    }
+                        .adicionarDocumento:hover {
+                            background-color: var(--turquesa-medio);
+                            color: white;
+                        }
 
-    .downlod-button {
-    background: none;
-    border: none;
-    color: #4a90e2;
-    font-size: 1.2rem;
-    cursor: not-allowed;
-    opacity: 0.5;
-    }
+                    }
 
-    .avatarPaciente {
-      width: 150px;
-      height: 150px;
+                }
+
+                .listaDocumentos {
+                    list-style: none;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    padding: 0px;
+
+                    p {
+                        background-color: var(--cinza-claro);
+                        border-radius: 10px;
+                        display: flex;
+                        align-items: center;
+                        gap: 2px;
+                        padding: 2px 5px;
+                        position: relative;
+                        transition: background 0.2s;
+                    }
+
+                }
+
+            }
+        }
     }
 
 }

@@ -124,6 +124,9 @@ export function AppointmentList() {
 
   return (
     <div className="listaAtendimentos">
+      <button onClick={handleOpenModal} className="btnCadastrarAtendimento">
+        Cadastrar Atendimento
+      </button>
       <div className="topoListagem">
         <div className="tabs">
           {tabs.map((tab) => (
@@ -136,18 +139,17 @@ export function AppointmentList() {
             </button>
           ))}
         </div>
-        <button onClick={handleOpenModal} className="btnCadastrarAtendimento">
-          + Cadastrar Atendimento
-        </button>
       </div>
 
-      <div className="titulo">
-        <div className="paciente">Paciente</div>
-        <div className="horario">Horário</div>
-        <div className="tipoAtendimento">Tipo</div>
-        <div className="status">Status</div>
-        <div className="visualizar"></div>
-      </div>
+      {filteredAppointments.length > 0 && (
+        <div className="titulo">
+          <div className="paciente">Paciente</div>
+          <div className="horario">Horário</div>
+          <div className="tipoAtendimento">Tipo</div>
+          <div className="status">Status</div>
+          <div className="visualizar"></div>
+        </div>
+      )}
 
       <div className="appointment-list">
         {filteredAppointments.length === 0 ? (
@@ -172,7 +174,7 @@ export function AppointmentList() {
               </div>
               <div className="visualizar">
                 <NavLink className="details-button" to={`/atendimentos/atendimento/${a.id}`}>
-                    <span>Visualisar Consulta</span>
+                  <span>Visualisar Consulta</span>
                 </NavLink>
               </div>
             </div>
@@ -184,44 +186,61 @@ export function AppointmentList() {
         <div className="modalOverlay">
           <div className="modalContent">
             <button className="closeButton" onClick={handleCloseModal}>
-              <IoCloseOutline size={24} />
+              <IoCloseOutline className="icone"/>
             </button>
 
             <h2>Cadastrar Atendimento</h2>
             <form onSubmit={handleSubmit} className="formAtendimento">
               <label>Paciente:</label>
-              <select name="patientId" value={form.patientId} onChange={handleChange} required>
-                <option value="">Selecione</option>
-                {patients.map((p) => (
-                  <option key={p.id} value={p.id}>{p.name}</option>
-                ))}
-              </select>
+              <div className="selectFormulario">
+                <select name="patientId" value={form.patientId} onChange={handleChange} required>
+                  <option value="">Selecione</option>
+                  {patients.map((p) => (
+                    <option key={p.id} value={p.id}>{p.name}</option>
+                  ))}
+                </select>
+              </div>
+
 
               <label>Data:</label>
               <input type="date" name="date" value={form.date} onChange={handleChange} required />
 
-              <label>Horário Início:</label>
-              <input type="time" name="timeStart" value={form.timeStart} onChange={handleChange} required />
+              <div className="horariosAtendimento">
+                <div className="inicio">
+                  <label>Horário Início:</label>
+                  <input type="time" name="timeStart" value={form.timeStart} onChange={handleChange} required />
+                </div>
 
-              <label>Horário Fim:</label>
-              <input type="time" name="timeEnd" value={form.timeEnd} onChange={handleChange} required />
+                <div className="fim">
+                  <label>Horário Fim:</label>
+                  <input type="time" name="timeEnd" value={form.timeEnd} onChange={handleChange} required />
+                </div>
+              </div>
 
-              <label>Tipo:</label>
-              <select name="type" value={form.type} onChange={handleChange}>
-                <option value="Individual">Individual</option>
-                <option value="Familiar">Familiar</option>
-                <option value="Retorno">Retorno</option>
-              </select>
+              <div className="tipoStatus">
+                <div className="tiposListaAtendimento">
+                  <label>Tipo:</label>
+                  <select name="type" value={form.type} onChange={handleChange}>
+                    <option value="Individual">Individual</option>
+                    <option value="Familiar">Familiar</option>
+                    <option value="Retorno">Retorno</option>
+                  </select>
+                </div>
+                <div className="statusListaAtendimentos">
+                  <label>Status:</label>
+                  <select name="status" value={form.status} onChange={handleChange}>
+                    <option value="Confirmado">Confirmado</option>
+                    <option value="Pendente">Pendente</option>
+                    <option value="Cancelado">Cancelado</option>
+                  </select>
+                </div>
+              </div>
 
-              <label>Observação:</label>
-              <textarea name="note" value={form.note} onChange={handleChange} />
+              <div className="observacoesAtendimento">
+                <label>Observação:</label>
+                <textarea name="note" value={form.note} onChange={handleChange} />
+              </div>
 
-              <label>Status:</label>
-              <select name="status" value={form.status} onChange={handleChange}>
-                <option value="Confirmado">Confirmado</option>
-                <option value="Pendente">Pendente</option>
-                <option value="Cancelado">Cancelado</option>
-              </select>
 
               <button type="submit">Salvar Atendimento</button>
             </form>

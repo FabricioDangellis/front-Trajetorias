@@ -4,6 +4,7 @@ import "./PatientList.css";
 import { IoCloseOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import avatarPlaceholder from "../../assets/padrao.jpg"; // um avatar padrão local
+import { TextInput } from "../Input/TextInputProps";
 
 interface Patient {
   id: number;
@@ -153,41 +154,65 @@ export function PatientList() {
         <div className="modal-overlay">
           <div className="modal">
             <h2>Novo Paciente</h2>
+            <button className="fecharCadastro" type="button" onClick={() => setShowModal(false)}>
+              <IoCloseOutline className="iconeClose" />
+            </button>
             <form onSubmit={handleCadastrarPaciente}>
-              <input
-                type="text"
-                placeholder="Nome do paciente"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                required
-              />
-              <input
-                type="text"
-                placeholder="Nome do responsável"
-                value={formData.guardianName}
-                onChange={(e) => setFormData({ ...formData, guardianName: e.target.value })}
-                required
-              />
-              <input
-                type="date"
-                placeholder="Data de nascimento"
-                value={formData.birthDate}
-                onChange={(e) => setFormData({ ...formData, birthDate: e.target.value })}
-                required
-              />
-              <select
-                value={formData.status}
-                onChange={(e) => setFormData({ ...formData, status: e.target.value as "Ativo" | "Inativo" })}
-              >
-                <option value="Ativo">Ativo</option>
-                <option value="Inativo">Inativo</option>
-              </select>
-              <input
-                type="text"
-                placeholder="Último atendimento (opcional)"
-                value={formData.lastAppointment}
-                onChange={(e) => setFormData({ ...formData, lastAppointment: e.target.value })}
-              />
+              <div className="pacienteResponsavel">
+                <div className="paciente">
+                  <h4>Paciente</h4>
+                  <TextInput
+                    type="text"
+                    placeholder="Nome do paciente"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="responsavel">
+                  <h4>Responsável</h4>
+                  <TextInput
+                    type="text"
+                    placeholder="Nome do responsável"
+                    value={formData.guardianName}
+                    onChange={(e) => setFormData({ ...formData, guardianName: e.target.value })}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="nascimentoStatus">
+                <div className="nascimento">
+                  <h4>Data de Nascimento</h4>
+                  <TextInput
+                    type="date"
+                    placeholder="Data de nascimento"
+                    value={formData.birthDate}
+                    onChange={(e) => setFormData({ ...formData, birthDate: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="statusFormularioPaciente">
+                  <h4>Status</h4>
+                    <select
+                      value={formData.status}
+                      onChange={(e) => setFormData({ ...formData, status: e.target.value as "Ativo" | "Inativo" })}
+                    >
+                      <option value="Ativo">Ativo</option>
+                      <option value="Inativo">Inativo</option>
+                    </select>
+                </div>
+              </div>
+
+              <div className="ultimoAtendimento">
+                <h4>Último Atendimento</h4>
+                <TextInput
+                  type="text"
+                  placeholder="Último atendimento (opcional)"
+                  value={formData.lastAppointment}
+                  onChange={(e) => setFormData({ ...formData, lastAppointment: e.target.value })}
+                />
+              </div>
 
               {/* UPLOAD de IMAGEM */}
               <label>Foto do paciente</label>
@@ -206,20 +231,21 @@ export function PatientList() {
                 }}
               />
 
-              <textarea
-                placeholder="Sobre o paciente"
-                value={formData.aboutPatient}
-                onChange={(e) => setFormData({ ...formData, aboutPatient: e.target.value })}
-              />
-              <textarea
-                placeholder="Informações adicionais"
-                value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              />
-              <div className="botoesModal">
-                <button type="submit">Salvar</button>
-                <button type="button" onClick={() => setShowModal(false)}>Cancelar</button>
+              <div className="informes">
+                <textarea
+                  placeholder="Sobre o paciente"
+                  value={formData.aboutPatient}
+                  onChange={(e) => setFormData({ ...formData, aboutPatient: e.target.value })}
+                />
+                <textarea
+                  placeholder="Informações adicionais"
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                />
               </div>
+
+
+              <button type="submit">Salvar</button>
             </form>
           </div>
         </div>
