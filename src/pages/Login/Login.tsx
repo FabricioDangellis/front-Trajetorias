@@ -68,9 +68,7 @@ export default function Login() {
               label="Senha"
               required
             />
-            <Link className="
-            
-            " to={"/dashboard"}>Esqueci minha senha</Link>
+            <Link className="esqueciSenha" to={"/"}>Esqueci minha senha</Link>
 
             <button type="submit">Entrar</button>
           </form>

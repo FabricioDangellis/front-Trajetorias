@@ -7,10 +7,14 @@
   flex: 1;
   display: flex;
   overflow-y: auto;
-  width: 100px;
+  max-width: 100%;
 
   .mainSection {
     padding: 1rem;
-    width: calc(100% - 2rem);
+    width: calc(100% - 4rem);
+
+    .topo {
+      margin-bottom: 15px;
+    }
   }
 }

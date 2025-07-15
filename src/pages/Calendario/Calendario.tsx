@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { CalendarComponent } from "../../components/CalendarComponent/CalendarComponent";
 import { Sidebar } from "../../components/SideBar/SideBar";
+import "./Calendario.css"
 
 export function Calendario() {
     const navigate = useNavigate();
@@ -22,7 +23,6 @@ export function Calendario() {
 
                     <div className="lista">
                         <CalendarComponent />
-
                     </div>
                 </section>
 

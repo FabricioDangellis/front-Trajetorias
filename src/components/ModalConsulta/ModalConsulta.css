@@ -18,27 +18,33 @@
   width: 90%;
   max-width: 450px;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  position: relative;
+
+  h2 {
+    margin-bottom: 15px;
+  }
 }
 
-.modal-content h3 {
-  margin-bottom: 1rem;
-  color: #2575fc;
+.closeButton {
+      background: none;
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      right: 5px;
+      top: 10px;
+      color: red;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .icone {
+          width: 40px;
+          height: 40px;
+      }
 }
 
-.modal-content button {
-  margin-top: 1rem;
-  margin-right: 0.5rem;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.view-button {
-  background-color: var(--turquesa-medio);
-  color: white;
-}
-
-.close-button {
-  background-color: #ddd;
+.closeButton:hover {
+  background: none;
 }

@@ -60,5 +60,9 @@
         form .dados > div, form .nome > div {
             flex: 2;
         }
+
+        button {
+            margin-bottom: 15px;
+        }
     }
 }

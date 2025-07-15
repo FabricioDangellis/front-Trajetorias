@@ -26,7 +26,7 @@ export function Sidebar({onLogout}: SideBarProps) {
       <hr className="divisao" />
 
       <nav className="nav">
-        <NavLink to="/teste" className="link">
+        <NavLink to="/dashboard" className="link">
           <CiGrid41 className="icone"/>
           <span>Dashboard</span>
         </NavLink>

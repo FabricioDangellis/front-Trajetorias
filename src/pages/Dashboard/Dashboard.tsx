@@ -26,7 +26,7 @@ export default function Dashboard() {
 
     if (!usuarioLogado) {
       alert("Sessão expirada. Faça login novamente.");
-      navigate("/login");
+      navigate("/");
     } else {
       setUsuario(usuarioLogado);
     }

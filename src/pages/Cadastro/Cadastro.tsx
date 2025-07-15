@@ -163,7 +163,7 @@ export default function Cadastro() {
               <button type="submit">Cadastrar</button>
             </form>
 
-            <span>Já possui uma conta? <Link to={"/login"}>Entrar</Link></span>
+            <span className="possuiConta">Já possui uma conta? <Link to={"/"}>Entrar</Link></span>
 
           </div>
 
