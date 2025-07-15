@@ -34,7 +34,7 @@ export default function Dashboard() {
 
   function handleLogout() {
     localStorage.removeItem("usuarioLogado");
-    navigate("/login");
+    navigate("/");
   }
 
   return (

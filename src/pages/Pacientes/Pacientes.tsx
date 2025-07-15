@@ -8,7 +8,7 @@ export default function Pacientes() {
 
     function handleLogout() {
         localStorage.removeItem("token");
-        navigate("/login");
+        navigate("/");
     }
 
     return (

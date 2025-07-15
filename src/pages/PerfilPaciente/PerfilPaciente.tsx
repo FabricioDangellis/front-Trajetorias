@@ -57,7 +57,7 @@ export default function PerfilPaciente() {
 
   function handleLogout() {
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/");
   }
 
   function handleSalvarDocumento(e: React.FormEvent) {

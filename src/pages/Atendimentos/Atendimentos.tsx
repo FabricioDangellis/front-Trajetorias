@@ -8,7 +8,7 @@ export function Atendimentos() {
 
     function handleLogout() {
         localStorage.removeItem("token");
-        navigate("/login");
+        navigate("/");
     }
 
     return (
