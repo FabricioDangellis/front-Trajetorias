@@ -50,9 +50,7 @@ export default function Cadastro() {
     // Salva o novo usuário
     usuariosSalvos.push(novoUsuario);
     localStorage.setItem("usuarios", JSON.stringify(usuariosSalvos));
-
-    alert("Cadastro realizado com sucesso!");
-    navigate("/login");
+    navigate("/");
   }
 
 
