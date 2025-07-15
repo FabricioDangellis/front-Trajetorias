@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Sidebar } from "../../components/SideBar/SideBar";
 import { IoTrashOutline, IoCreateOutline } from "react-icons/io5";
-import { CiCirclePlus, CiImport } from "react-icons/ci";
+import { CiCirclePlus } from "react-icons/ci";
 import "./ConsultaDetalhes.css";
 
 interface Appointment {
@@ -29,7 +29,7 @@ export default function ConsultaDetalhes() {
   const navigate = useNavigate();
   const [appointment, setAppointment] = useState<Appointment | null>(null);
   const [paciente, setPaciente] = useState<Patient | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
+  // const [isEditing, setIsEditing] = useState(false);
   const [notes, setNotes] = useState("");
   const [started, setStarted] = useState(false);
   const [finished, setFinished] = useState(false);
@@ -163,7 +163,7 @@ export default function ConsultaDetalhes() {
               <div className="botoes-controle">
                 <button onClick={() => { setStarted(true); handleUpdate({ started: true }); }}>Iniciar</button>
                 <button onClick={() => { setFinished(true); handleUpdate({ finished: true }); }}>Finalizar</button>
-                <button onClick={() => setIsEditing(true)}><IoCreateOutline /> Editar</button>
+                <button ><IoCreateOutline /> Editar</button>
                 <button onClick={handleDelete} className="delete"><IoTrashOutline /> Excluir</button>
               </div>
 
