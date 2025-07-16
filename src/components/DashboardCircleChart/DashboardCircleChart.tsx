@@ -25,13 +25,13 @@ export function DashboardCircleChart() {
     };
 
     allAppointments.forEach(appt => {
-      if (appt.status === "Confirmado") statusCounts.Realizadas += 1;
-      else if (appt.status === "Pendente") statusCounts.Marcadas += 1;
-      else if (appt.status === "Cancelado") statusCounts.Canceladas += 1;
+      if (appt.status === "Finalizada") statusCounts.Realizadas += 1;
+      else if (appt.status === "Marcada") statusCounts.Marcadas += 1;
+      else if (appt.status === "Cancelada") statusCounts.Canceladas += 1;
     });
 
     const updatedData = [
-      { name: "Realizadas", value: statusCounts.Realizadas, color: "#457B9D" },
+      { name: "Finalizadas", value: statusCounts.Realizadas, color: "#457B9D" },
       { name: "Marcadas", value: statusCounts.Marcadas, color: "#FFD166" },
       { name: "Canceladas", value: statusCounts.Canceladas, color: "#FFB6B9" },
     ];
@@ -40,7 +40,7 @@ export function DashboardCircleChart() {
   }, []);
 
   const total = data.reduce((sum, item) => sum + item.value, 0);
-  const realizadas = data.find((d) => d.name === "Realizadas")?.value || 0;
+  const realizadas = data.find((d) => d.name === "Finalizadas")?.value || 0;
   const percentRealizadas = total > 0 ? Math.round((realizadas / total) * 100) : 0;
 
   return (

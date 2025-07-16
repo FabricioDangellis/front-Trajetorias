@@ -10,7 +10,7 @@ interface Appointment {
   date: string;
   timeStart: string;
   timeEnd: string;
-  status: "Confirmada" | "Cancelada" | "Pendente";
+  status: "Marcada" | "Cancelada" |"Finalizada";
   type: string;
   notes?: string;
   started?: boolean;
@@ -29,7 +29,6 @@ export default function ConsultaDetalhes() {
   const navigate = useNavigate();
   const [appointment, setAppointment] = useState<Appointment | null>(null);
   const [paciente, setPaciente] = useState<Patient | null>(null);
-  // const [isEditing, setIsEditing] = useState(false);
   const [notes, setNotes] = useState("");
   const [started, setStarted] = useState(false);
   const [finished, setFinished] = useState(false);
@@ -40,7 +39,7 @@ export default function ConsultaDetalhes() {
     const pacientes: Patient[] = JSON.parse(stored);
     let found: Appointment | null = null;
     for (const p of pacientes) {
-      const appt = (p.appointments || []).find((a: Appointment) => a.id === Number(id));
+      const appt = p.appointments?.find((a) => a.id === Number(id));
       if (appt) {
         found = appt;
         setPaciente(p);
@@ -77,17 +76,34 @@ export default function ConsultaDetalhes() {
 
     const stored = localStorage.getItem("pacientes") || "[]";
     const pacientes: Patient[] = JSON.parse(stored);
-    const updatedPacientes = pacientes.map((p: Patient) => {
+
+    const updatedPacientes = pacientes.map((p) => {
       if (p.id === paciente.id) {
-        const updatedAppointments = p.appointments.map((a: Appointment) =>
-          a.id === appointment.id ? { ...a, ...updatedFields } : a
-        );
+        const updatedAppointments = p.appointments.map((a) => {
+          if (a.id === appointment.id) {
+            return {
+              ...a,
+              ...updatedFields,
+              status: updatedFields.finished ? "Finalizada" : a.status,
+              notes: updatedFields.notes ?? a.notes,
+            };
+          }
+          return a;
+        });
+
         return { ...p, appointments: updatedAppointments };
       }
       return p;
     });
+
     localStorage.setItem("pacientes", JSON.stringify(updatedPacientes));
-    setAppointment({ ...appointment, ...updatedFields });
+
+    setAppointment((prev) => prev ? {
+      ...prev,
+      ...updatedFields,
+      status: updatedFields.finished ? "Finalizada" : prev.status,
+      notes: updatedFields.notes ?? prev.notes
+    } : null);
   }
 
   function handleDelete() {
@@ -97,9 +113,9 @@ export default function ConsultaDetalhes() {
 
     const stored = localStorage.getItem("pacientes") || "[]";
     const pacientes: Patient[] = JSON.parse(stored);
-    const updatedPacientes = pacientes.map((p: Patient) => {
+    const updatedPacientes = pacientes.map((p) => {
       if (p.id === paciente.id) {
-        const updatedAppointments = p.appointments.filter((a: Appointment) => a.id !== appointment.id);
+        const updatedAppointments = p.appointments.filter((a) => a.id !== appointment.id);
         return { ...p, appointments: updatedAppointments };
       }
       return p;
@@ -139,7 +155,7 @@ export default function ConsultaDetalhes() {
                     <p>{appointment.date}</p>
 
                     <p><strong>Horário:</strong></p>
-                    <p> {appointment.timeStart} - {appointment.timeEnd}</p>
+                    <p>{appointment.timeStart} - {appointment.timeEnd}</p>
 
                     <p><strong>Tipo:</strong></p>
                     <p>{appointment.type}</p>
@@ -153,7 +169,6 @@ export default function ConsultaDetalhes() {
                 </div>
               </div>
 
-
               <div className="temporisador">
                 <p className="timer">
                   <strong>Tempo da Sessão:</strong> {formatTime(timer)}
@@ -161,9 +176,21 @@ export default function ConsultaDetalhes() {
               </div>
 
               <div className="botoes-controle">
-                <button onClick={() => { setStarted(true); handleUpdate({ started: true }); }}>Iniciar</button>
-                <button onClick={() => { setFinished(true); handleUpdate({ finished: true }); }}>Finalizar</button>
-                <button ><IoCreateOutline /> Editar</button>
+                <button onClick={() => {
+                  setStarted(true);
+                  handleUpdate({ started: true });
+                }}>
+                  Iniciar
+                </button>
+
+                <button onClick={() => {
+                  setFinished(true);
+                  handleUpdate({ finished: true, notes });
+                }}>
+                  Finalizar
+                </button>
+
+                <button><IoCreateOutline /> Editar</button>
                 <button onClick={handleDelete} className="delete"><IoTrashOutline /> Excluir</button>
               </div>
 
@@ -195,7 +222,6 @@ export default function ConsultaDetalhes() {
             </div>
           </div>
         </section>
-
       </main>
     </div>
   );

@@ -42,16 +42,16 @@
   position: relative;
 }
 
-.appointment-card.confirmada {
-  border-left: 5px solid var(--turquesa-medio);
+.appointment-card.finalizada {
+  border-left: 5px solid #1e8e3e;
 }
 
 .appointment-card.cancelada {
-  border-left: 5px solid var(--rosa-claro);
+  border-left: 5px solid #d93025;
 }
 
-.appointment-card.pendente {
-  border-left: 5px solid var(--amarelo-pastel);
+.appointment-card.marcada {
+  border-left: 5px solid #fbbc04;
 }
 
 
@@ -65,17 +65,17 @@
   text-transform: uppercase;
 }
 
-.tipo.confirmada {
-  background-color: #d1e3f3;
-  color: var(--turquesa-medio);
+.tipo.finalizada {
+  background-color: #d1f3e0;
+  color: #1e8e3e;
 }
 
 .tipo.cancelada {
-  background-color: var(--rosa-claro);
-  color: #ea0008;
+  background-color: #ffe2e2;
+  color: #d93025;
 }
 
-.tipo.pendente {
-  background-color: #fdeecc;
-  color: #ffb300;
+.tipo.marcada {
+  background-color: #fff6cc;
+    color: #fbbc04;
 }

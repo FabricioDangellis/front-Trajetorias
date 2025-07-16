@@ -9,8 +9,10 @@ interface Appointment {
   id: number;
   date: string;
   time: string;
-  status: "Confirmada" | "Cancelada" | "Pendente";
+  status: "Marcada" | "Cancelada" |"Finalizada";
   type: "Individual" | "Familiar" | "Retorno";
+  timeStart: string;
+  timeEnd: string;
 }
 
 interface Document {
@@ -140,7 +142,7 @@ export default function PerfilPaciente() {
 
               <div className="listasQuadros">
                 <div className="atendimentos">
-                  <PatientCare appointments={paciente.appointments || []}/>
+                  <PatientCare appointments={paciente.appointments || []} />
                 </div>
               </div>
             </div>

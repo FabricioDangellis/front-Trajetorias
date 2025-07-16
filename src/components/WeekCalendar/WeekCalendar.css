@@ -1,5 +1,6 @@
 .calendar-container {
   width: 100%;
+  box-sizing: border-box;
   padding-bottom: 10px;
   background: #ffffff;
   border-radius: 0 0 10px 10px;

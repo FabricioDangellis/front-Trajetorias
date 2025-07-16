@@ -11,7 +11,7 @@ interface Appointment {
   date: string;
   timeStart: string;
   timeEnd: string;
-  status: "Confirmado" | "Pendente" | "Cancelado";
+  status: "Marcada" | "Cancelada" |"Finalizada";
   type: "Individual" | "Familiar" | "Retorno";
   note: string;
 }
@@ -24,7 +24,7 @@ interface Patient {
 }
 
 
-const tabs = ["Hoje", "Todos", "Confirmado", "Pendente", "Cancelado"];
+const tabs = ["Hoje", "Marcada", "Finalizada", "Cancelada",  "Todos"];
 
 export function AppointmentList() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -40,7 +40,7 @@ export function AppointmentList() {
     timeEnd: "",
     note: "",
     type: "Individual",
-    status: "Confirmado" as Appointment["status"],
+    status: "Marcada" as Appointment["status"],
   });
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export function AppointmentList() {
       timeEnd: "",
       note: "",
       type: "Individual",
-      status: "Confirmado",
+      status: "Marcada",
     });
     setIsModalOpen(false);
   }
@@ -229,9 +229,9 @@ export function AppointmentList() {
                 <div className="statusListaAtendimentos">
                   <label>Status:</label>
                   <select name="status" value={form.status} onChange={handleChange}>
-                    <option value="Confirmado">Confirmado</option>
-                    <option value="Pendente">Pendente</option>
-                    <option value="Cancelado">Cancelado</option>
+                    <option value="Marcada">Marcada</option>
+                    <option value="Finalizada">Finalizada</option>
+                    <option value="Cancelada">Cancelada</option>
                   </select>
                 </div>
               </div>

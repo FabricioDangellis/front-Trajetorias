@@ -1,13 +1,14 @@
 import { useState } from "react";
 import "./PatientCare.css";
-import { format, isBefore } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 interface Appointment {
   id: number;
   date: string; // formato: YYYY-MM-DD
-  time: string;
-  status: "Confirmada" | "Cancelada" | "Pendente";
+  status: "Marcada" | "Cancelada" |"Finalizada";
   type: "Individual" | "Familiar" | "Retorno";
+  timeStart: string;
+  timeEnd: string;
 }
 
 interface Props {
@@ -17,17 +18,13 @@ interface Props {
 export function PatientCare({ appointments }: Props) {
   const [activeTab, setActiveTab] = useState<"upcoming" | "past">("upcoming");
 
-  const today = new Date();
+  const upcomingAppointments = appointments.filter(
+    (appt) => appt.status === "Marcada"
+  );
 
-  const upcomingAppointments = appointments.filter((appt) => {
-    const apptDate = new Date(`${appt.date}T${appt.time}`);
-    return !isBefore(apptDate, today);
-  });
-
-  const pastAppointments = appointments.filter((appt) => {
-    const apptDate = new Date(`${appt.date}T${appt.time}`);
-    return isBefore(apptDate, today);
-  });
+  const pastAppointments = appointments.filter(
+    (appt) => appt.status !== "Marcada"
+  );
 
   const appointmentsToShow =
     activeTab === "upcoming" ? upcomingAppointments : pastAppointments;
@@ -54,9 +51,15 @@ export function PatientCare({ appointments }: Props) {
           <p>Nenhuma consulta registrada.</p>
         ) : (
           appointmentsToShow.map((appt) => (
-            <div key={appt.id} className={`appointment-card ${appt.status.toLowerCase()}`}>
+            <div
+              key={appt.id}
+              className={`appointment-card ${appt.status.toLowerCase()}`}
+            >
               <div>
-                <strong>{format(new Date(appt.date), "dd/MM/yyyy")}</strong> às <strong>{appt.time}</strong>
+                <strong>
+                  {format(parseISO(appt.date), "dd/MM/yyyy")}
+                </strong>{" "}
+                das <strong>{appt.timeStart} </strong> às <strong>{appt.timeEnd}</strong>
               </div>
               <p>Tipo: {appt.type}</p>
               <span className={`tipo ${appt.status.toLowerCase()}`}>

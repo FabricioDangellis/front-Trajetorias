@@ -43,7 +43,7 @@ export function DashboardBarChart() {
           <XAxis type="number" />
           <YAxis dataKey="day" type="category" />
           <Tooltip />
-          <Bar dataKey="realizadas" fill="#2575fc" barSize={20} />
+          <Bar dataKey="realizadas" fill="#A8DADC" barSize={20} />
         </BarChart>
       </ResponsiveContainer>
     </div>

@@ -11,7 +11,7 @@ interface Appointment {
   date: string;          // formato: YYYY-MM-DD
   timeStart: string;     // formato: HH:mm
   timeEnd: string;       // formato: HH:mm
-  status: "Confirmada" | "Cancelada" | "Pendente";
+  status: "Marcada" | "Cancelada" |"Finalizada";
   type: string;
   notes?: string;
 }

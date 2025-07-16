@@ -63,18 +63,18 @@
 }
 
 /* Azul - Confirmado */
-.fc-event.confirmado {
-  background-color: #2575fc;
+.fc-event.finalizada {
+  background-color: #1e8e3e;
 }
 
 /* Amarelo - Pendente */
-.fc-event.pendente {
+.fc-event.marcada {
   background-color: #fcbf49;
   color: #333;
 }
 
 /* Vermelho - Cancelado */
-.fc-event.cancelado {
+.fc-event.cancelada {
   background-color: #e63946;
 }
 
