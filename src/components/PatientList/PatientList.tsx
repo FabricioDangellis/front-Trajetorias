@@ -5,6 +5,8 @@ import { IoCloseOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import avatarPlaceholder from "../../assets/padrao.jpg"; // um avatar padrão local
 import { TextInput } from "../Input/TextInputProps";
+import { Toast } from "../Feedback/Toast";
+
 
 interface Patient {
   id: number;
@@ -23,6 +25,8 @@ export function PatientList() {
   const [search, setSearch] = useState("");
   const [patients, setPatients] = useState<Patient[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState<"success" | "error" | "">("");
 
   const [formData, setFormData] = useState<{
     name: string;
@@ -57,26 +61,35 @@ export function PatientList() {
   function handleCadastrarPaciente(e: React.FormEvent) {
     e.preventDefault();
 
-    const novoPaciente: Patient = {
-      ...formData,
-      id: Date.now(),
-      avatar: formData.avatar || avatarPlaceholder,
-    };
+    try {
+      const novoPaciente: Patient = {
+        ...formData,
+        id: Date.now(),
+        avatar: formData.avatar || avatarPlaceholder,
+      };
 
-    const atualizado = [...patients, novoPaciente];
-    savePatients(atualizado);
-    setShowModal(false);
-    setFormData({
-      name: "",
-      status: "Ativo",
-      lastAppointment: "",
-      avatar: "",
-      guardianName: "",
-      birthDate: "",
-      aboutPatient: "",
-      description: "",
-    });
+      const atualizado = [...patients, novoPaciente];
+      savePatients(atualizado);
+      setShowModal(false);
+      setFormData({
+        name: "",
+        status: "Ativo",
+        lastAppointment: "",
+        avatar: "",
+        guardianName: "",
+        birthDate: "",
+        aboutPatient: "",
+        description: "",
+      });
+
+      setToastMessage("Paciente cadastrado com sucesso!");
+      setToastType("success");
+    } catch (error) {
+      setToastMessage("Erro ao cadastrar paciente.");
+      setToastType("error");
+    }
   }
+
 
   const filteredPatients = patients.filter((p) =>
     p.name.toLowerCase().includes(search.toLowerCase())
@@ -194,13 +207,13 @@ export function PatientList() {
                 </div>
                 <div className="statusFormularioPaciente">
                   <h4>Status</h4>
-                    <select
-                      value={formData.status}
-                      onChange={(e) => setFormData({ ...formData, status: e.target.value as "Ativo" | "Inativo" })}
-                    >
-                      <option value="Ativo">Ativo</option>
-                      <option value="Inativo">Inativo</option>
-                    </select>
+                  <select
+                    value={formData.status}
+                    onChange={(e) => setFormData({ ...formData, status: e.target.value as "Ativo" | "Inativo" })}
+                  >
+                    <option value="Ativo">Ativo</option>
+                    <option value="Inativo">Inativo</option>
+                  </select>
                 </div>
               </div>
 
@@ -250,6 +263,18 @@ export function PatientList() {
           </div>
         </div>
       )}
+
+      {toastMessage && (
+        <Toast
+          message={toastMessage}
+          type={toastType as "success" | "error"}
+          onClose={() => {
+            setToastMessage("");
+            setToastType("");
+          }}
+        />
+      )}
+
     </div>
   );
 }

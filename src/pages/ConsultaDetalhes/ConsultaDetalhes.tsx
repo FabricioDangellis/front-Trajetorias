@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Sidebar } from "../../components/SideBar/SideBar";
 import { IoTrashOutline, IoCreateOutline, IoCloseOutline } from "react-icons/io5";
 import { CiCirclePlus } from "react-icons/ci";
+import { Toast } from "../../components/Feedback/Toast";
 import "./ConsultaDetalhes.css";
 
 interface Appointment {
@@ -35,6 +36,8 @@ export default function ConsultaDetalhes() {
   const [finished, setFinished] = useState(false);
   const [timer, setTimer] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState<"success" | "error" | "">("");
 
   const [editForm, setEditForm] = useState({
     date: "",
@@ -142,6 +145,7 @@ export default function ConsultaDetalhes() {
     });
     localStorage.setItem("pacientes", JSON.stringify(updatedPacientes));
     navigate("/atendimentos");
+    
   }
 
   function handleNoteChange(value: string) {
@@ -178,6 +182,8 @@ export default function ConsultaDetalhes() {
       notes: editForm.note
     });
     setIsModalOpen(false);
+    setToastMessage("Atendimento editado com sucesso!");
+    setToastType("success");
   }
 
   if (!appointment || !paciente) return <p>Consulta não encontrada.</p>;
@@ -336,6 +342,17 @@ export default function ConsultaDetalhes() {
             </form>
           </div>
         </div>
+      )}
+
+      {toastMessage && (
+        <Toast
+          message={toastMessage}
+          type={toastType as "success" | "error"}
+          onClose={() => {
+            setToastMessage("");
+            setToastType("");
+          }}
+        />
       )}
     </div>
   );

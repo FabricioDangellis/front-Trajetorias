@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./AppointmentList.css";
 import { IoCloseOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
+import { Toast } from "../Feedback/Toast";
 
 interface Appointment {
   id: number;
@@ -11,7 +12,7 @@ interface Appointment {
   date: string;
   timeStart: string;
   timeEnd: string;
-  status: "Marcada" | "Cancelada" |"Finalizada";
+  status: "Marcada" | "Cancelada" | "Finalizada";
   type: "Individual" | "Familiar" | "Retorno";
   note: string;
 }
@@ -24,13 +25,15 @@ interface Patient {
 }
 
 
-const tabs = ["Hoje", "Marcada", "Finalizada", "Cancelada",  "Todos"];
+const tabs = ["Hoje", "Marcada", "Finalizada", "Cancelada", "Todos"];
 
 export function AppointmentList() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [activeTab, setActiveTab] = useState("Hoje");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [patients, setPatients] = useState<Patient[]>([]);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState<"success" | "error" | "">("");
 
   // Formulário
   const [form, setForm] = useState({
@@ -92,34 +95,44 @@ export function AppointmentList() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    const selectedPatient = patients.find((p) => p.id === Number(form.patientId));
-    if (!selectedPatient) return;
+    try {
+      const selectedPatient = patients.find((p) => p.id === Number(form.patientId));
+      if (!selectedPatient) return;
 
-    const newAppointment: Appointment = {
-      id: Date.now(),
-      patientId: selectedPatient.id,
-      patient: selectedPatient.name,
-      avatar: selectedPatient.avatar,
-      date: form.date,
-      timeStart: form.timeStart,
-      timeEnd: form.timeEnd,
-      note: form.note,
-      type: form.type as Appointment["type"],
-      status: form.status,
-    };
+      const newAppointment: Appointment = {
+        id: Date.now(),
+        patientId: selectedPatient.id,
+        patient: selectedPatient.name,
+        avatar: selectedPatient.avatar,
+        date: form.date,
+        timeStart: form.timeStart,
+        timeEnd: form.timeEnd,
+        note: form.note,
+        type: form.type as Appointment["type"],
+        status: form.status,
+      };
 
-    const updatedPatients = patients.map((p) => {
-      if (p.id === selectedPatient.id) {
-        return {
-          ...p,
-          appointments: [...(p.appointments || []), newAppointment],
-        };
-      }
-      return p;
-    });
+      const updatedPatients = patients.map((p) => {
+        if (p.id === selectedPatient.id) {
+          return {
+            ...p,
+            appointments: [...(p.appointments || []), newAppointment],
+          };
+        }
+        return p;
+      });
 
-    localStorage.setItem("pacientes", JSON.stringify(updatedPatients));
-    setIsModalOpen(false);
+      localStorage.setItem("pacientes", JSON.stringify(updatedPatients));
+      setIsModalOpen(false);
+
+      setToastMessage("Atendimento cadastrado com sucesso!");
+      setToastType("success");
+    } catch (error) {
+      setToastMessage("Erro ao cadastrar atendimento.");
+      setToastType("error");
+    }
+
+
   }
 
   return (
@@ -186,7 +199,7 @@ export function AppointmentList() {
         <div className="modalOverlay">
           <div className="modalContent">
             <button className="closeButton" onClick={handleCloseModal}>
-              <IoCloseOutline className="icone"/>
+              <IoCloseOutline className="icone" />
             </button>
 
             <h2>Cadastrar Atendimento</h2>
@@ -247,6 +260,18 @@ export function AppointmentList() {
           </div>
         </div>
       )}
+
+      {toastMessage && (
+        <Toast
+          message={toastMessage}
+          type={toastType as "success" | "error"}
+          onClose={() => {
+            setToastMessage("");
+            setToastType("");
+          }}
+        />
+      )}
+      
     </div>
   );
 }
