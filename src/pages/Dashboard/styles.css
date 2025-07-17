@@ -3,11 +3,11 @@
   height: 100vh;
 }
 
-.content {
+.contentDashboard {
   flex: 1;
   display: flex;
   overflow-y: auto;
-  width: 100px;
+  width: 100%;
 
   .conteudo {
     width: 70%;
@@ -138,6 +138,10 @@
         font-size: 1rem;
         font-family: var(--fonte-titulos);
       }
+    }
+
+    .calendarioSemanl {
+      background-color: rebeccapurple;
     }
 
     .user {

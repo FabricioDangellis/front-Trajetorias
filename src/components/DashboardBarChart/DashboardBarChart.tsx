@@ -40,7 +40,12 @@ export function DashboardBarChart() {
     <div style={{ width: "100%", height: 300 }}>
       <ResponsiveContainer>
         <BarChart layout="vertical" data={barData}>
-          <XAxis type="number" />
+          <XAxis
+            type="number"
+            domain={[0, 10]}
+            tickCount={11}
+            tickFormatter={(value) => Number.isInteger(value) ? value : ''}
+          />
           <YAxis dataKey="day" type="category" />
           <Tooltip />
           <Bar dataKey="realizadas" fill="#A8DADC" barSize={20} />

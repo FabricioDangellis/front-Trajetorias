@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Sidebar } from "../../components/SideBar/SideBar";
-import { IoTrashOutline, IoCreateOutline } from "react-icons/io5";
+import { IoTrashOutline, IoCreateOutline, IoCloseOutline } from "react-icons/io5";
 import { CiCirclePlus } from "react-icons/ci";
 import "./ConsultaDetalhes.css";
 
@@ -10,11 +10,12 @@ interface Appointment {
   date: string;
   timeStart: string;
   timeEnd: string;
-  status: "Marcada" | "Cancelada" |"Finalizada";
+  status: "Marcada" | "Cancelada" | "Finalizada";
   type: string;
   notes?: string;
   started?: boolean;
   finished?: boolean;
+  duration?: number; // <-- Novo campo
 }
 
 interface Patient {
@@ -33,6 +34,18 @@ export default function ConsultaDetalhes() {
   const [started, setStarted] = useState(false);
   const [finished, setFinished] = useState(false);
   const [timer, setTimer] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [editForm, setEditForm] = useState({
+    date: "",
+    timeStart: "",
+    timeEnd: "",
+    type: "",
+    status: "",
+    note: ""
+  });
+
+  const notesStorageKey = `notes-temporarias-${id}`;
 
   useEffect(() => {
     const stored = localStorage.getItem("pacientes") || "[]";
@@ -48,9 +61,14 @@ export default function ConsultaDetalhes() {
     }
     if (found) {
       setAppointment(found);
-      setNotes(found.notes || "");
       setStarted(!!found.started);
       setFinished(!!found.finished);
+      setTimer(found.duration || 0);
+    }
+
+    const savedNotes = localStorage.getItem(notesStorageKey);
+    if (savedNotes) {
+      setNotes(savedNotes);
     }
   }, [id]);
 
@@ -84,8 +102,7 @@ export default function ConsultaDetalhes() {
             return {
               ...a,
               ...updatedFields,
-              status: updatedFields.finished ? "Finalizada" : a.status,
-              notes: updatedFields.notes ?? a.notes,
+              status: updatedFields.finished ? "Finalizada" : a.status
             };
           }
           return a;
@@ -98,12 +115,15 @@ export default function ConsultaDetalhes() {
 
     localStorage.setItem("pacientes", JSON.stringify(updatedPacientes));
 
-    setAppointment((prev) => prev ? {
-      ...prev,
-      ...updatedFields,
-      status: updatedFields.finished ? "Finalizada" : prev.status,
-      notes: updatedFields.notes ?? prev.notes
-    } : null);
+    setAppointment((prev) =>
+      prev
+        ? {
+          ...prev,
+          ...updatedFields,
+          status: updatedFields.finished ? "Finalizada" : prev.status
+        }
+        : null
+    );
   }
 
   function handleDelete() {
@@ -122,6 +142,42 @@ export default function ConsultaDetalhes() {
     });
     localStorage.setItem("pacientes", JSON.stringify(updatedPacientes));
     navigate("/atendimentos");
+  }
+
+  function handleNoteChange(value: string) {
+    setNotes(value);
+    localStorage.setItem(notesStorageKey, value);
+  }
+
+  function handleEditClick() {
+    if (!appointment) return;
+    setEditForm({
+      date: appointment.date,
+      timeStart: appointment.timeStart,
+      timeEnd: appointment.timeEnd,
+      type: appointment.type,
+      status: appointment.status,
+      note: appointment.notes || ""
+    });
+    setIsModalOpen(true);
+  }
+
+  function handleEditChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
+    const { name, value } = e.target;
+    setEditForm((prev) => ({ ...prev, [name]: value }));
+  }
+
+  function handleEditSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    handleUpdate({
+      date: editForm.date,
+      timeStart: editForm.timeStart,
+      timeEnd: editForm.timeEnd,
+      type: editForm.type,
+      status: editForm.status as "Marcada" | "Cancelada" | "Finalizada",
+      notes: editForm.note
+    });
+    setIsModalOpen(false);
   }
 
   if (!appointment || !paciente) return <p>Consulta não encontrada.</p>;
@@ -176,21 +232,27 @@ export default function ConsultaDetalhes() {
               </div>
 
               <div className="botoes-controle">
-                <button onClick={() => {
-                  setStarted(true);
-                  handleUpdate({ started: true });
-                }}>
+                <button
+                  onClick={() => {
+                    setStarted(true);
+                    handleUpdate({ started: true });
+                  }}
+                  disabled={appointment.status === "Finalizada"}
+                >
                   Iniciar
                 </button>
 
-                <button onClick={() => {
-                  setFinished(true);
-                  handleUpdate({ finished: true, notes });
-                }}>
+                <button
+                  onClick={() => {
+                    setFinished(true);
+                    handleUpdate({ finished: true, duration: timer });
+                  }}
+                  disabled={appointment.status === "Finalizada"}
+                >
                   Finalizar
                 </button>
 
-                <button><IoCreateOutline /> Editar</button>
+                <button onClick={handleEditClick}><IoCreateOutline /> Editar</button>
                 <button onClick={handleDelete} className="delete"><IoTrashOutline /> Excluir</button>
               </div>
 
@@ -198,8 +260,7 @@ export default function ConsultaDetalhes() {
                 <h3>Anotações da Sessão</h3>
                 <textarea
                   value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  onBlur={() => handleUpdate({ notes })}
+                  onChange={(e) => handleNoteChange(e.target.value)}
                   placeholder="Escreva observações sobre a sessão..."
                 />
               </div>
@@ -223,6 +284,59 @@ export default function ConsultaDetalhes() {
           </div>
         </section>
       </main>
+
+      {isModalOpen && (
+        <div className="modalOverlay">
+          <div className="modalContent">
+            <button className="closeButton" onClick={() => setIsModalOpen(false)}>
+              <IoCloseOutline className="icone" />
+            </button>
+            <h2>Editar Atendimento</h2>
+            <form onSubmit={handleEditSubmit} className="formAtendimento">
+              <label>Data:</label>
+              <input type="date" name="date" value={editForm.date} onChange={handleEditChange} required />
+
+              <div className="horariosAtendimento">
+                <div className="inicio">
+                  <label>Horário Início:</label>
+                  <input type="time" name="timeStart" value={editForm.timeStart} onChange={handleEditChange} required />
+                </div>
+
+                <div className="fim">
+                  <label>Horário Fim:</label>
+                  <input type="time" name="timeEnd" value={editForm.timeEnd} onChange={handleEditChange} required />
+                </div>
+              </div>
+
+              <div className="tipoStatus">
+                <div className="tiposListaAtendimento">
+                  <label>Tipo:</label>
+                  <select name="type" value={editForm.type} onChange={handleEditChange}>
+                    <option value="Individual">Individual</option>
+                    <option value="Familiar">Familiar</option>
+                    <option value="Retorno">Retorno</option>
+                  </select>
+                </div>
+                <div className="statusListaAtendimentos">
+                  <label>Status:</label>
+                  <select name="status" value={editForm.status} onChange={handleEditChange}>
+                    <option value="Marcada">Marcada</option>
+                    <option value="Finalizada">Finalizada</option>
+                    <option value="Cancelada">Cancelada</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="observacoesAtendimento">
+                <label>Observação:</label>
+                <textarea name="note" value={editForm.note} onChange={handleEditChange} />
+              </div>
+
+              <button type="submit">Salvar Alterações</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

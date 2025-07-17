@@ -70,7 +70,7 @@ export function WeekCalendar() {
   }, []);
 
   return (
-    <div className="calendar-container">
+    <div className="calendarWeek-container">
       <div className="calendar-week">
         {weekDays.map((day) => (
           <button

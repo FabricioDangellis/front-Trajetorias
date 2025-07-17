@@ -40,7 +40,7 @@ export default function Dashboard() {
   return (
     <div className="container">
       <Sidebar onLogout={handleLogout} />
-      <main className="content">
+      <main className="contentDashboard">
         <div className="conteudo">
           <Header/>
 
