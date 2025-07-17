@@ -76,87 +76,105 @@ export default function Cadastro() {
           <div className="formulario">
 
             <h2>Cadastro Rápido e Seguro</h2>
-            <span>Acreditamos que pequenos passos constroem grandes trajetórias. <br />
-              Comece hoje mesmo!
-            </span>
 
             <div className="logins">
-              <button title="Faça login com o Google" className="google">
+              <button title="Cadastre-se com o Google" className="google">
                 <FcGoogle className="iconeLogin" />
               </button>
 
-              <button title="Faça login com o Facebook" className="facebook">
+              <button title="Cadastre-se com o Facebook" className="facebook">
                 <FaFacebook className="iconeLogin" />
               </button>
             </div>
-
-            <h3>ou</h3>
+            
 
             <form onSubmit={handleLogin}>
 
               <div className="nome">
-                <TextInput
-                  type="text"
-                  placeholder="Nome"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
+                <div className="nom">
+                  <label htmlFor="id">Nome</label>
+                  <TextInput
+                    id="nome"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </div>
 
+                <div className="sobrenom">
+                  <label htmlFor="sobrenome">Sobrenome</label>
+                  <TextInput
+                    id="sobenome"
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="email">
+                <label htmlFor="email">Email</label>
                 <TextInput
-                  type="text"
-                  placeholder="Sobrenome"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  label="E-mail"
                   required
                 />
               </div>
-
-              <TextInput
-                type="email"
-                placeholder="E-mail"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                label="E-mail"
-                required
-              />
 
               <div className="dados">
-                <TextInput
-                  className="cpf"
-                  type="text"
-                  placeholder="CPF"
-                  value={cpf}
-                  onChange={(e) => setCPF(e.target.value)}
-                  required
-                />
+                <div className="cpf">
+                  <label htmlFor="cpf">CPF</label>
+                  <TextInput
+                    id="cpf"
+                    className="cpf"
+                    type="text"
+                    value={cpf}
+                    onChange={(e) => setCPF(e.target.value)}
+                    required
+                  />
+                </div>
 
-                <TextInput
-                  className="nascimento"
-                  type="date"
-                  placeholder="Data de nascimento"
-                  value={dataBirth}
-                  onChange={(e) => setDataBirth(e.target.value)}
-                  required
-                />
+                <div className="dataNascimento">
+                  <label htmlFor="nascimento">Data de Nascimento</label>
+                  <TextInput
+                    id="nascimento"
+                    className="nascimento"
+                    type="date"
+                    value={dataBirth}
+                    onChange={(e) => setDataBirth(e.target.value)}
+                    required
+                  />
+                </div>
+
 
               </div>
 
-              <TextInput
-                type="password"
-                placeholder="Senha"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div className="senhas">
+                <label htmlFor="senha">Senha</label>
+                <TextInput
+                  id="senha"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
 
-              <TextInput
-                type="password"
-                placeholder="Confirme sua senha"
-                value={confirmedPassword}
-                onChange={(e) => setConfirmedPassword(e.target.value)}
-                required
-              />
+              <div className="senhas">
+                <label htmlFor="confirmeSenha">Confirme sua Senha</label>
+                <TextInput
+                  id="confirmeSenha"
+                  type="password"
+                  value={confirmedPassword}
+                  onChange={(e) => setConfirmedPassword(e.target.value)}
+                  required
+                />
+              </div>
 
               <button type="submit">Cadastrar</button>
             </form>
