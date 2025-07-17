@@ -186,7 +186,7 @@ export default function ConsultaDetalhes() {
     <div className="container consulta-detalhes">
       <Sidebar onLogout={() => { localStorage.removeItem("token"); navigate("/"); }} />
 
-      <main className="content">
+      <main className="contentConsultaDetelhes">
         <section className="mainSection">
           <div className="topo">
             <h2> Atendimento - {paciente.name}</h2>

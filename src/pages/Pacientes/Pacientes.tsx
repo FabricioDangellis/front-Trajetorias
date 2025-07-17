@@ -14,7 +14,7 @@ export default function Pacientes() {
     return (
         <div className="container">
             <Sidebar onLogout={handleLogout} />
-            <main className="content">
+            <main className="contentPacientesLista">
 
                 <section className="mainSection">
                     <div className="topo">

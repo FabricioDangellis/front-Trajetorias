@@ -190,10 +190,15 @@
         }
     }
 
-      .content {
+      .contentConsultaDetelhes {
+        flex: 1;
+        display: flex;
+        overflow-y: auto;
+        width: 100px;
 
         .mainSection {
             width: 100%;
+            padding: 1rem;
             
             .conteudo {
                 width: 100%;

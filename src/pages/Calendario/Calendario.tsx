@@ -14,7 +14,7 @@ export function Calendario() {
     return (
         <div className="container">
             <Sidebar onLogout={handleLogout} />
-            <main className="content">
+            <main className="contentCalendario">
 
                 <section className="mainSection">
                     <div className="topo">
