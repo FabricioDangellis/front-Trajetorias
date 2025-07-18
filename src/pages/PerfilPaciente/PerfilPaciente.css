@@ -1,8 +1,14 @@
 .container.perfilPaciente {
 
-    .contentPaciente {
+    .contentPerfilPaciente {
+        flex: 1;
+        display: flex;
+        overflow-y: auto;
+        width: 100%;
 
         .mainSection {
+            padding: 1rem;
+            width: calc(100% - 2rem);
             
             .conteudo {
                 width: 100%;

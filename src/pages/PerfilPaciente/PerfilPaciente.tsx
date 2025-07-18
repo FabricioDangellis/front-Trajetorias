@@ -108,7 +108,7 @@ export default function PerfilPaciente() {
   return (
     <div className="container perfilPaciente">
       <Sidebar onLogout={handleLogout} />
-      <main className="contentPaciente">
+      <main className="contentPerfilPaciente">
         <section className="mainSection">
           <div className="topo">
             <h2>Pacientes - Perfil Paciente</h2>
