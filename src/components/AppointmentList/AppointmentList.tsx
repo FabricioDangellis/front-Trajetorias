@@ -93,6 +93,21 @@ export function AppointmentList() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
+    const start = form.timeStart;
+    const end = form.timeEnd;
+
+    const [hStart, mStart] = start.split(":").map(Number);
+    const [hEnd, mEnd] = end.split(":").map(Number);
+
+    const startDate = new Date(0, 0, 0, hStart, mStart);
+    const endDate = new Date(0, 0, 0, hEnd, mEnd);
+
+    if (endDate <= startDate) {
+      setToastMessage("O horário de fim deve ser depois do horário de início.");
+      setToastType("error");
+      return;
+    }
+
     const selectedPatient = patients.find((p) => p.id === Number(form.patientId));
     if (!selectedPatient) return;
 
@@ -107,7 +122,7 @@ export function AppointmentList() {
       notes: form.note,
       type: form.type as Appointment["type"],
       status: form.status,
-      anotacao: "", // inicial vazio
+      anotacao: "",
     };
 
     const updatedPatients = patients.map((p) =>
@@ -124,6 +139,7 @@ export function AppointmentList() {
     setToastMessage("Atendimento cadastrado com sucesso!");
     setToastType("success");
   }
+
 
   return (
     <div className="listaAtendimentos">
