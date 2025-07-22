@@ -23,7 +23,9 @@ export function DashboardBarChart() {
     const counts: { [key: string]: number } = {};
 
     allAppointments.forEach(appt => {
-      const dayIndex = new Date(appt.date).getDay();
+      const [year, month, day] = appt.date.split("-").map(Number);
+      const date = new Date(year, month - 1, day); // Corrigido: data local
+      const dayIndex = date.getDay();
       const dayName = weekDays[dayIndex];
       counts[dayName] = (counts[dayName] || 0) + 1;
     });
