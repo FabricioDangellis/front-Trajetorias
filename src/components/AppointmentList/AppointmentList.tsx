@@ -14,16 +14,16 @@ interface Appointment {
   timeEnd: string;
   status: "Marcada" | "Cancelada" | "Finalizada";
   type: "Individual" | "Familiar" | "Retorno";
-  note: string;
+  notes?: string;      // Observações
+  anotacao?: string;   // Anotações da sessão
 }
 
 interface Patient {
   id: number;
   name: string;
   avatar: string;
-  appointments?: Appointment[]; // <- ADICIONE ISSO
+  appointments?: Appointment[];
 }
-
 
 const tabs = ["Hoje", "Marcada", "Finalizada", "Cancelada", "Todos"];
 
@@ -35,7 +35,6 @@ export function AppointmentList() {
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState<"success" | "error" | "">("");
 
-  // Formulário
   const [form, setForm] = useState({
     patientId: "",
     date: "",
@@ -63,7 +62,6 @@ export function AppointmentList() {
   }, [isModalOpen]);
 
   const today = new Date().toISOString().split("T")[0];
-
   const filteredAppointments = appointments.filter((a) => {
     if (activeTab === "Hoje") return a.date === today;
     if (activeTab === "Todos") return true;
@@ -95,44 +93,36 @@ export function AppointmentList() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    try {
-      const selectedPatient = patients.find((p) => p.id === Number(form.patientId));
-      if (!selectedPatient) return;
+    const selectedPatient = patients.find((p) => p.id === Number(form.patientId));
+    if (!selectedPatient) return;
 
-      const newAppointment: Appointment = {
-        id: Date.now(),
-        patientId: selectedPatient.id,
-        patient: selectedPatient.name,
-        avatar: selectedPatient.avatar,
-        date: form.date,
-        timeStart: form.timeStart,
-        timeEnd: form.timeEnd,
-        note: form.note,
-        type: form.type as Appointment["type"],
-        status: form.status,
-      };
+    const newAppointment: Appointment = {
+      id: Date.now(),
+      patientId: selectedPatient.id,
+      patient: selectedPatient.name,
+      avatar: selectedPatient.avatar,
+      date: form.date,
+      timeStart: form.timeStart,
+      timeEnd: form.timeEnd,
+      notes: form.note,
+      type: form.type as Appointment["type"],
+      status: form.status,
+      anotacao: "", // inicial vazio
+    };
 
-      const updatedPatients = patients.map((p) => {
-        if (p.id === selectedPatient.id) {
-          return {
-            ...p,
-            appointments: [...(p.appointments || []), newAppointment],
-          };
+    const updatedPatients = patients.map((p) =>
+      p.id === selectedPatient.id
+        ? {
+          ...p,
+          appointments: [...(p.appointments || []), newAppointment],
         }
-        return p;
-      });
+        : p
+    );
 
-      localStorage.setItem("pacientes", JSON.stringify(updatedPatients));
-      setIsModalOpen(false);
-
-      setToastMessage("Atendimento cadastrado com sucesso!");
-      setToastType("success");
-    } catch (error) {
-      setToastMessage("Erro ao cadastrar atendimento.");
-      setToastType("error");
-    }
-
-
+    localStorage.setItem("pacientes", JSON.stringify(updatedPatients));
+    setIsModalOpen(false);
+    setToastMessage("Atendimento cadastrado com sucesso!");
+    setToastType("success");
   }
 
   return (
@@ -140,6 +130,7 @@ export function AppointmentList() {
       <button onClick={handleOpenModal} className="btnCadastrarAtendimento">
         Cadastrar Atendimento
       </button>
+
       <div className="topoListagem">
         <div className="tabs">
           {tabs.map((tab) => (
@@ -214,7 +205,6 @@ export function AppointmentList() {
                 </select>
               </div>
 
-
               <label>Data:</label>
               <input type="date" name="date" value={form.date} onChange={handleChange} required />
 
@@ -254,7 +244,6 @@ export function AppointmentList() {
                 <textarea name="note" value={form.note} onChange={handleChange} />
               </div>
 
-
               <button type="submit">Salvar Atendimento</button>
             </form>
           </div>
@@ -271,7 +260,6 @@ export function AppointmentList() {
           }}
         />
       )}
-      
     </div>
   );
 }

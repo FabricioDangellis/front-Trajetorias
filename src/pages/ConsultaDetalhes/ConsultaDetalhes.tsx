@@ -13,10 +13,11 @@ interface Appointment {
   timeEnd: string;
   status: "Marcada" | "Cancelada" | "Finalizada";
   type: string;
-  notes?: string;
+  notes?: string;      // Observações do atendimento
+  anotacao?: string;   // Anotações da sessão
   started?: boolean;
   finished?: boolean;
-  duration?: number; // <-- Novo campo
+  duration?: number;
 }
 
 interface Patient {
@@ -31,7 +32,7 @@ export default function ConsultaDetalhes() {
   const navigate = useNavigate();
   const [appointment, setAppointment] = useState<Appointment | null>(null);
   const [paciente, setPaciente] = useState<Patient | null>(null);
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState(""); // Anotação da sessão
   const [started, setStarted] = useState(false);
   const [finished, setFinished] = useState(false);
   const [timer, setTimer] = useState(0);
@@ -47,8 +48,6 @@ export default function ConsultaDetalhes() {
     status: "",
     note: ""
   });
-
-  const notesStorageKey = `notes-temporarias-${id}`;
 
   useEffect(() => {
     const stored = localStorage.getItem("pacientes") || "[]";
@@ -67,11 +66,7 @@ export default function ConsultaDetalhes() {
       setStarted(!!found.started);
       setFinished(!!found.finished);
       setTimer(found.duration || 0);
-    }
-
-    const savedNotes = localStorage.getItem(notesStorageKey);
-    if (savedNotes) {
-      setNotes(savedNotes);
+      setNotes(found.anotacao || ""); // agora pega anotação da sessão
     }
   }, [id]);
 
@@ -105,12 +100,11 @@ export default function ConsultaDetalhes() {
             return {
               ...a,
               ...updatedFields,
-              status: updatedFields.finished ? "Finalizada" : a.status
+              status: updatedFields.finished ? "Finalizada" : updatedFields.status || a.status,
             };
           }
           return a;
         });
-
         return { ...p, appointments: updatedAppointments };
       }
       return p;
@@ -121,12 +115,16 @@ export default function ConsultaDetalhes() {
     setAppointment((prev) =>
       prev
         ? {
-          ...prev,
-          ...updatedFields,
-          status: updatedFields.finished ? "Finalizada" : prev.status
-        }
+            ...prev,
+            ...updatedFields,
+            status: updatedFields.finished ? "Finalizada" : updatedFields.status || prev.status,
+          }
         : null
     );
+
+    if (updatedFields.anotacao !== undefined) {
+      setNotes(updatedFields.anotacao);
+    }
   }
 
   function handleDelete() {
@@ -145,12 +143,11 @@ export default function ConsultaDetalhes() {
     });
     localStorage.setItem("pacientes", JSON.stringify(updatedPacientes));
     navigate("/atendimentos");
-    
   }
 
   function handleNoteChange(value: string) {
     setNotes(value);
-    localStorage.setItem(notesStorageKey, value);
+    handleUpdate({ anotacao: value });
   }
 
   function handleEditClick() {
@@ -161,7 +158,7 @@ export default function ConsultaDetalhes() {
       timeEnd: appointment.timeEnd,
       type: appointment.type,
       status: appointment.status,
-      note: appointment.notes || ""
+      note: appointment.notes || "", // apenas notes
     });
     setIsModalOpen(true);
   }
@@ -178,8 +175,8 @@ export default function ConsultaDetalhes() {
       timeStart: editForm.timeStart,
       timeEnd: editForm.timeEnd,
       type: editForm.type,
-      status: editForm.status as "Marcada" | "Cancelada" | "Finalizada",
-      notes: editForm.note
+      status: editForm.status as Appointment["status"],
+      notes: editForm.note,
     });
     setIsModalOpen(false);
     setToastMessage("Atendimento editado com sucesso!");
@@ -195,7 +192,7 @@ export default function ConsultaDetalhes() {
       <main className="contentConsultaDetelhes">
         <section className="mainSection">
           <div className="topo">
-            <h2> Atendimento - {paciente.name}</h2>
+            <h2>Atendimento - {paciente.name}</h2>
           </div>
 
           <div className="conteudo">
@@ -226,7 +223,7 @@ export default function ConsultaDetalhes() {
                     <p>{appointment.status}</p>
 
                     <p><strong>Observações:</strong></p>
-                    <p>{appointment.notes}</p>
+                    <p>{appointment.notes || "Nenhuma observação cadastrada."}</p>
                   </div>
                 </div>
               </div>
